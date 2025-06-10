@@ -1,0 +1,39 @@
+import nltk
+import re
+from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')
+
+def regex_patterns_in_text(file_path):
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            text = file.read().lower()
+            tokens = word_tokenize(text)
+
+            patterns = {
+                'a*': r'a*',
+                'a+': r'a+',
+                'a?': r'a?',
+                'uppercase_letters': r'[A-Z]',
+                's_or_S': r'[Ss]'
+            }
+
+            results = {key: [] for key in patterns}
+
+            for word in tokens:
+                for pattern_name, pattern in patterns.items():
+                    if re.search(pattern, word):
+                        results[pattern_name].append(word)
+
+            return results
+    except FileNotFoundError:
+        return f"Error: The file at {file_path} was not found."
+
+file_path = 'nlp5.txt'
+regex_results = regex_patterns_in_text(file_path)
+
+if isinstance(regex_results, dict):
+    for pattern_name, matched_words in regex_results.items():
+        print(f"Words matching '{pattern_name}': {matched_words}")
+else:
+    print(regex_results)
