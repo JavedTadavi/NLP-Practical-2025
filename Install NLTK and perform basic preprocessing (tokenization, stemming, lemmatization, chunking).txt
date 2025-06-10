@@ -1,0 +1,50 @@
+import nltk
+from nltk.tokenize import word_tokenize
+nltk.download('punkt')
+
+text = "Hello, I am learning NLP with Python. It's amazing!"
+tokens = word_tokenize(text)
+# OUTPUT
+# Word Tokens: ['Hello', ',', 'I', 'am', 'learning', 'NLP', 'with', 'Python', '.', 'It', "'s", 'amazing', '!']
+
+
+import nltk
+from nltk.stem import PorterStemmer
+nltk.download('punkt')
+
+stemmer = PorterStemmer()
+words = ["running", "runner", "easily", "flies", "better", "happily", "studying"]
+stemmed_words = [stemmer.stem(word) for word in words]
+# OUTPUT
+# Original words: ['running', 'runner', 'easily', 'flies', 'better', 'happily', 'studying']
+# Stemmed words: ['run', 'runner', 'easili', 'fli', 'better', 'happili', 'studi']
+
+
+import nltk
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+nltk.download('punkt')
+nltk.download('wordnet')
+
+lemmatizer = WordNetLemmatizer()
+words = ["running", "runners", "flies", "better", "happily", "studying"]
+lemmatized_words = [lemmatizer.lemmatize(word, pos=wordnet.VERB) if word in ["running", "studying"] else lemmatizer.lemmatize(word) for word in words]
+# OUTPUT
+# Original words: ['running', 'runners', 'flies', 'better', 'happily', 'studying']
+# Lemmatized words: ['run', 'runner', 'fly', 'better', 'happily', 'study']
+
+
+import nltk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+from nltk import word_tokenize, pos_tag, ne_chunk
+
+sentence = "Barack Obama was born in Hawaii."
+words = word_tokenize(sentence)
+tags = pos_tag(words)
+chunked_sentence = ne_chunk(tags)
+print(chunked_sentence)
+# OUTPUT
+# (S (PERSON Barack/NNP) (PERSON Obama/NNP) was/VBD born/VBN in/IN (GPE Hawaii/NNP) ./.)
