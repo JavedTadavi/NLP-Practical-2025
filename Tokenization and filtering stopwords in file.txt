@@ -1,0 +1,27 @@
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+def tokenize_and_filter(text):
+    tokens = word_tokenize(text)
+    tokens = [token.lower() for token in tokens]
+    stop_words = set(stopwords.words('english'))
+    filtered_tokens = [token for token in tokens if token not in stop_words]
+    return filtered_tokens
+
+def read_file(file_path):
+    with open(file_path, 'r') as file:
+        text = file.read()
+    return text
+
+def main():
+    file_path = 'nlp2.txt'
+    text = read_file(file_path)
+    filtered_tokens = tokenize_and_filter(text)
+    print("Filtered Tokens:", filtered_tokens)
+
+if name == " main ":
+    main()
