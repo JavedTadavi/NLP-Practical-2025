@@ -1,0 +1,26 @@
+import nltk
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
+
+def count_articles_in_file(file_path):
+    articles = ['a', 'an', 'the']
+    article_count = {'a': 0, 'an': 0, 'the': 0}
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            for line in file:
+                words = word_tokenize(line.lower())
+                for word in words:
+                    if word in articles:
+                        article_count[word] += 1
+        return article_count
+    except FileNotFoundError:
+        return f"Error: The file at {file_path} was not found."
+
+file_path = 'nlp3.txt'
+article_counts = count_articles_in_file(file_path)
+if isinstance(article_counts, dict):
+    print(f"Count of 'a': {article_counts['a']}")
+    print(f"Count of 'an': {article_counts['an']}")
+    print(f"Count of 'the': {article_counts['the']}")
+else:
+    print(article_counts)
